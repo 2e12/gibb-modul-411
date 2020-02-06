@@ -8,9 +8,9 @@ public class Render {
 
     public char getSymbol(boolean cell){
         if(cell){
-            return '▓';
-        }else{
             return '░';
+        }else{
+            return '▓';
         }
     }
 

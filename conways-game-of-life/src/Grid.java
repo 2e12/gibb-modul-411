@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Grid {
 
     private int width;
@@ -18,12 +20,32 @@ public class Grid {
         return this.grid[y][x];
     }
 
+
+
     public int getGridSize(){
         return this.width * this.height;
     }
 
     private void generateGrid(){
         this.grid = new boolean[this.height][this.width];
+        this.fillGridRandomly();
+    }
+
+    private void fillGridRandomly(){
+        Random random = new Random();
+        int y = 0;
+
+        while (y < this.height) {
+            int x = 0;
+            while (x < this.width) {
+                int randomNumber = random.nextInt(10);
+                if (randomNumber < 6) {
+                    grid[y][x] = true;
+                }
+                x++;
+            }
+            y++;
+        }
     }
 
     public boolean[][] getGrid() {
