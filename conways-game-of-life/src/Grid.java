@@ -9,7 +9,7 @@ public class Grid {
     public Grid(int width, int height) {
         this.width = width;
         this.height = height;
-        this.generateGrid();
+        this.grid = this.fillGridRandomly(this.generateGrid());
     }
 
     public void set(int x, int y, boolean value){
@@ -20,18 +20,16 @@ public class Grid {
         return this.grid[y][x];
     }
 
-
-
     public int getGridSize(){
         return this.width * this.height;
     }
 
-    private void generateGrid(){
-        this.grid = new boolean[this.height][this.width];
-        this.fillGridRandomly();
+    public boolean[][] generateGrid(){
+        boolean[][] grid = new boolean[this.height][this.width];
+        return grid;
     }
 
-    private void fillGridRandomly(){
+    private boolean[][] fillGridRandomly(boolean[][] grid){
         Random random = new Random();
         int y = 0;
 
@@ -46,9 +44,44 @@ public class Grid {
             }
             y++;
         }
+        return grid;
     }
 
     public boolean[][] getGrid() {
         return grid;
+    }
+
+    public void setGrid(boolean[][] grid) {
+        this.grid = grid;
+    }
+
+    public int countLivingSurroundingCells(int initX, int initY){
+        int livingCells = 0;
+        int startX = initX - 1;
+        int startY = initY - 1;
+        int scanLength = 3;
+        int arrayIndex = 0;
+        for (int y = startY; y < startY + scanLength; y++) {
+            if (y < 0 || y > this.height - 1) {
+                continue;
+            }
+            for (int x = startX; x < startX + scanLength; x++) {
+                if (x < 0 || x > this.width - 1) {
+                    continue;
+                }
+                if(initX != x && initY != y) {
+                    if (this.get(x, y)) livingCells++;
+                }
+            }
+        }
+        return livingCells;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
